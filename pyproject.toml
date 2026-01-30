@@ -1,0 +1,29 @@
+[project]
+name = "ComfyUI-QwenASR"
+description = "A lightweight ComfyUI custom node pack for Qwen3-ASR, providing simple speech‑to‑text workflows with local model caching and optional timestamp output.
+  Supports Qwen/Qwen3‑ASR‑1.7B and 0.6B, with HuggingFace/ModelScope download options and clean integration for ComfyUI pipelines."
+version = "0.0.1"
+license = {file = "LICENSE"}
+
+dependencies = [
+	"accelerate>=1.12.0"
+	"huggingface_hub"
+	"modelscope"
+	"nagisa==0.2.11"
+	"soynlp==0.0.493"
+	"DyNet38==2.2"
+	"numpy"
+	"soundfile"
+	"torch>=2.0.0"
+	"torchaudio>=2.0.0"
+	"transformers>=4.57.0"
+]
+    
+[project.urls]
+Repository = "https://github.com/1038lab/ComfyUI-QwenASR"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "ailab"
+DisplayName = "ComfyUI-QwenASR"
+Icon = ""
