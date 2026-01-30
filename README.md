@@ -2,6 +2,8 @@
 
 ComfyUI custom nodes for **Qwen3-ASR** (Automatic Speech Recognition). This pack focuses on simple, reliable speech-to-text and subtitle workflows with local model caching and long-audio support.
 
+![ComfyUI-QwenASR](https://github.com/user-attachments/assets/c90b0187-3e68-415f-b4dc-5f4792cb556f)
+
 ## Features
 
 - **Two nodes**: simple STT and subtitle generation
@@ -18,7 +20,7 @@ ComfyUI custom nodes for **Qwen3-ASR** (Automatic Speech Recognition). This pack
 - **Use case**: quick speech-to-text
  - **Hints**: optional keywords/names to improve recognition
 
-![ASR](example_workflows/ASR.JPG) [Workflow](example_workflows/ASR.json)
+![ASR](example_workflows/ASR.jpg) [Workflow](example_workflows/ASR.json)
 
 ### Subtitle (QwenASR)
 - **Input**: AUDIO
@@ -30,7 +32,7 @@ ComfyUI custom nodes for **Qwen3-ASR** (Automatic Speech Recognition). This pack
 - **Output path**: optional file save location (default: `ComfyUI/output/ComfyUI-QwenASR/`)
  - **Split mode**: default is punctuation + pause + length (balanced for subtitles)
 
-![Subtitle](example_workflows/Subtitle.JPG) [Workflow](example_workflows/Subtitle.json)
+![Subtitle](example_workflows/Subtitle.jpg) [Workflow](example_workflows/Subtitle.json)
 
 Tip: in ComfyUI search, type **ASR** to find these nodes quickly.
 
