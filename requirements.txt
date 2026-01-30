@@ -1,0 +1,11 @@
+accelerate>=1.12.0
+huggingface_hub
+modelscope
+nagisa==0.2.11
+soynlp==0.0.493
+DyNet38==2.2
+numpy
+soundfile
+torch>=2.0.0
+torchaudio>=2.0.0
+transformers>=4.57.0
