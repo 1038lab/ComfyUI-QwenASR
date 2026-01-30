@@ -1,0 +1,19 @@
+{
+  "models": {
+    "Qwen/Qwen3-ASR-1.7B": "Qwen3-ASR-1.7B",
+    "Qwen/Qwen3-ASR-0.6B": "Qwen3-ASR-0.6B"
+  },
+  "aligners": {
+    "None": null,
+    "Qwen/Qwen3-ForcedAligner-0.6B": "Qwen3-ForcedAligner-0.6B"
+  },
+  "sources": ["HuggingFace", "ModelScope"],
+  "defaults": {
+    "repo_id": "Qwen/Qwen3-ASR-0.6B",
+    "source": "HuggingFace",
+    "precision": "bf16",
+    "attention": "auto",
+    "language": "auto",
+    "forced_aligner": "Qwen/Qwen3-ForcedAligner-0.6B"
+  }
+}
