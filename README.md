@@ -6,6 +6,8 @@ ComfyUI custom nodes for **Qwen3-ASR** (Automatic Speech Recognition). This pack
 
 ## Features
 
+https://github.com/user-attachments/assets/70d05cb2-9653-448a-ad6f-16868996b61e
+
 - **Two nodes**: simple STT and subtitle generation
 - **Long audio handling** (automatic chunking)
 - **Forced aligner** for timestamp-accurate subtitles
