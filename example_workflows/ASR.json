@@ -1,57 +1,9 @@
 {
   "id": "9d04e057-545b-4e74-a920-6d54c2095ab7",
   "revision": 0,
-  "last_node_id": 36,
-  "last_link_id": 53,
+  "last_node_id": 38,
+  "last_link_id": 57,
   "nodes": [
-    {
-      "id": 32,
-      "type": "AILab_Qwen3ASR",
-      "pos": [
-        2784.7420178280763,
-        5336.359243143102
-      ],
-      "size": [
-        340.6176309460038,
-        195.21771031298158
-      ],
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "audio",
-          "type": "AUDIO",
-          "link": 49
-        }
-      ],
-      "outputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "links": [
-            50
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "AILab_Qwen3ASR",
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "input_ue_unconnectable": {},
-          "version": "7.5.2"
-        }
-      },
-      "widgets_values": [
-        "Qwen/Qwen3-ASR-0.6B",
-        "bf16",
-        "auto",
-        "",
-        true
-      ],
-      "color": "#151c19",
-      "bgcolor": "#444d49"
-    },
     {
       "id": 5,
       "type": "LoadAudio",
@@ -72,8 +24,8 @@
           "name": "AUDIO",
           "type": "AUDIO",
           "links": [
-            49,
-            52
+            52,
+            56
           ]
         }
       ],
@@ -105,7 +57,7 @@
         195.21771031298158
       ],
       "flags": {},
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -132,54 +84,6 @@
       ]
     },
     {
-      "id": 34,
-      "type": "AILab_Qwen3ASR",
-      "pos": [
-        2784.7420178280763,
-        5627.756403217149
-      ],
-      "size": [
-        340.6176309460038,
-        195.21771031298158
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "audio",
-          "type": "AUDIO",
-          "link": 52
-        }
-      ],
-      "outputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "links": [
-            51
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "AILab_Qwen3ASR",
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "input_ue_unconnectable": {},
-          "version": "7.5.2"
-        }
-      },
-      "widgets_values": [
-        "Qwen/Qwen3-ASR-0.6B",
-        "bf16",
-        "auto",
-        "Important terms: ComfyUI, Qwen3-ASR\nUse exact casing for these terms.",
-        true
-      ],
-      "color": "#151c19",
-      "bgcolor": "#444d49"
-    },
-    {
       "id": 24,
       "type": "PreviewAny",
       "pos": [
@@ -191,13 +95,13 @@
         195.21771031298158
       ],
       "flags": {},
-      "order": 4,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
           "name": "source",
           "type": "*",
-          "link": 50
+          "link": 57
         }
       ],
       "outputs": [],
@@ -245,25 +149,107 @@
       ],
       "color": "#432",
       "bgcolor": "#653"
+    },
+    {
+      "id": 38,
+      "type": "AILab_Qwen3ASR",
+      "pos": [
+        2784.7420178280763,
+        5336.359243143102
+      ],
+      "size": [
+        340,
+        200
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 56
+        }
+      ],
+      "outputs": [
+        {
+          "name": "TEXT",
+          "type": "STRING",
+          "links": [
+            57
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AILab_Qwen3ASR",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [
+        "Qwen/Qwen3-ASR-0.6B",
+        "bf16",
+        "auto",
+        "",
+        true
+      ],
+      "color": "#151c19",
+      "bgcolor": "#444d49"
+    },
+    {
+      "id": 34,
+      "type": "AILab_Qwen3ASR",
+      "pos": [
+        2784.7420178280763,
+        5627.756403217149
+      ],
+      "size": [
+        340.6176309460038,
+        208
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 52
+        }
+      ],
+      "outputs": [
+        {
+          "name": "TEXT",
+          "type": "STRING",
+          "links": [
+            51
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AILab_Qwen3ASR",
+        "cnr_id": "ComfyUI-QwenASR",
+        "ver": "b4a72ce9edff506f1659c059891da8d98b73284b",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [
+        "Qwen/Qwen3-ASR-0.6B",
+        "bf16",
+        "auto",
+        "Important terms: ComfyUI, Qwen3-ASR\nUse exact casing for these terms.",
+        "true"
+      ],
+      "color": "#151c19",
+      "bgcolor": "#444d49"
     }
   ],
   "links": [
-    [
-      49,
-      5,
-      0,
-      32,
-      0,
-      "AUDIO"
-    ],
-    [
-      50,
-      32,
-      0,
-      24,
-      0,
-      "STRING"
-    ],
     [
       51,
       34,
@@ -279,6 +265,22 @@
       34,
       0,
       "AUDIO"
+    ],
+    [
+      56,
+      5,
+      0,
+      38,
+      0,
+      "AUDIO"
+    ],
+    [
+      57,
+      38,
+      0,
+      24,
+      0,
+      "STRING"
     ]
   ],
   "groups": [
@@ -301,8 +303,8 @@
       "bounding": [
         2774.7420178280763,
         5549.577962733179,
-        735.8864804879904,
-        283.39615079695125
+        733.6531345334579,
+        292.3296198117714
       ],
       "color": "#3f789e",
       "font_size": 24,
