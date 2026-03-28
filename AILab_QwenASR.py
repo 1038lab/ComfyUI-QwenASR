@@ -29,6 +29,14 @@ except Exception as _e:
 else:
     _IMPORT_ERROR = None
 
+try:
+    from qwen_asr.inference.qwen3_forced_aligner import Qwen3ForcedAligner
+except Exception as _e2:
+    Qwen3ForcedAligner = None
+    _ALIGNER_IMPORT_ERROR = _e2
+else:
+    _ALIGNER_IMPORT_ERROR = None
+
 # ComfyUI model folder registration
 QWEN3_ASR_ROOT = os.path.join(folder_paths.models_dir, "Qwen3-ASR")
 os.makedirs(QWEN3_ASR_ROOT, exist_ok=True)
@@ -44,6 +52,7 @@ SUPPORTED_LANGUAGES = [
 ]
 
 _ASR_MODEL_CACHE = {}
+_ALIGNER_CACHE = {}
 _CONFIG_CACHE = {"mtime": None, "data": None}
 
 
@@ -393,6 +402,38 @@ def _load_cached_model(
     model = Qwen3ASRModel.from_pretrained(model_path, **model_kwargs)
     _ASR_MODEL_CACHE[key] = model
     return model
+
+
+def _aligner_cache_key(
+    aligner_path: str,
+    dtype: torch.dtype,
+    device: torch.device,
+    attention: str,
+) -> tuple:
+    return (aligner_path, str(dtype), str(device), attention)
+
+
+def _load_cached_aligner(
+    aligner_path: str,
+    dtype: torch.dtype,
+    device: torch.device,
+    attention: str,
+):
+    key = _aligner_cache_key(aligner_path, dtype, device, attention)
+    cached = _ALIGNER_CACHE.get(key)
+    if cached is not None:
+        return cached
+
+    aligner_kwargs = {
+        "dtype": dtype,
+        "device_map": str(device),
+    }
+    if attention != "auto":
+        aligner_kwargs["attn_implementation"] = attention
+
+    aligner = Qwen3ForcedAligner.from_pretrained(aligner_path, **aligner_kwargs)
+    _ALIGNER_CACHE[key] = aligner
+    return aligner
 
 
 def _format_srt_time(seconds: float) -> str:
