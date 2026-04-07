@@ -637,8 +637,8 @@ class AILab_Qwen3ASRSubtitle:
         },
     }
 
-  RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING")
-  RETURN_NAMES = ("TEXT", "SUBTITLES", "LANUGAGE", "OUTPUT_PATH")
+  RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
+  RETURN_NAMES = ("TEXT", "SUBTITLES", "LANUGAGE", "TIMESTAMP_TEXT", "SRT_TEXT", "OUTPUT_PATH")
   FUNCTION = "transcribe"
   CATEGORY = "🧪AILab/🎙️QwenASR"
 
@@ -675,7 +675,7 @@ class AILab_Qwen3ASRSubtitle:
 
     audio_data = _normalize_audio(audio)
     if audio_data is None:
-      return ("", "", "")
+      return ("", "", "", "", "", "")
 
     lang = None if language == "auto" else language
     ctx = hints.strip() if isinstance(hints, str) else ""
@@ -705,9 +705,13 @@ class AILab_Qwen3ASRSubtitle:
     groups = _group_time_stamps(time_stamps, max_gap_sec=max_gap_sec, max_chars=max_chars, split_mode=split_mode)
     # Always build subtitle output
     lines = []
+    timestamp_lines = []
     for g in groups:
       lines.append(f"{g['start']:.2f}-{g['end']:.2f}: {g['text']}")
+      timestamp_lines.append(f"({g['start']:.1f}, {g['end']:.1f}) {g['text']}")
     subtitles = "\n".join(lines) if lines else ""
+    timestamp_text = "\n".join(timestamp_lines) if timestamp_lines else ""
+    srt_text = _build_srt_from_groups(groups)
 
     # Optional file save
     if output_format != "none":
@@ -727,7 +731,7 @@ class AILab_Qwen3ASRSubtitle:
           out_path = root + ext
       os.makedirs(os.path.dirname(out_path), exist_ok=True)
       if output_format == "srt":
-        file_content = _build_srt_from_groups(groups)
+        file_content = srt_text
       else:
         file_content = subtitles
       with open(out_path, "w", encoding="utf-8") as f:
@@ -741,7 +745,7 @@ class AILab_Qwen3ASRSubtitle:
       except Exception:
         pass
 
-    return (text, subtitles, detected_lang, file_path)
+    return (text, subtitles, detected_lang, timestamp_text, srt_text, file_path)
 
 
 class AILab_Qwen3ASRToSRT:
@@ -765,8 +769,8 @@ class AILab_Qwen3ASRToSRT:
         },
     }
 
-  RETURN_TYPES = ("STRING", "STRING")
-  RETURN_NAMES = ("SRT_PATH", "SRT_TEXT")
+  RETURN_TYPES = ("STRING", "STRING", "STRING")
+  RETURN_NAMES = ("TIMESTAMP_TEXT", "SRT_TEXT", "SRT_PATH")
   FUNCTION = "to_srt"
   CATEGORY = "🧪AILab/🎙️QwenASR"
 
@@ -798,11 +802,11 @@ class AILab_Qwen3ASRToSRT:
 
     audio_data = _normalize_audio(audio)
     if audio_data is None:
-      return ("", "")
+      return ("", "", "")
 
     text = original_text.strip() if isinstance(original_text, str) else ""
     if not text:
-      return ("", "")
+      return ("", "", "")
 
     lang = "Chinese" if language == "auto" else language
 
@@ -817,6 +821,12 @@ class AILab_Qwen3ASRToSRT:
     time_stamps = align_result.items
     groups = _group_time_stamps(time_stamps, max_gap_sec=max_gap_sec, max_chars=max_chars, split_mode=split_mode)
     srt_text = _build_srt_from_groups(groups)
+
+    # Build timestamp text format: (0.0, 2.0) text
+    timestamp_lines = []
+    for g in groups:
+      timestamp_lines.append(f"({g['start']:.1f}, {g['end']:.1f}) {g['text']}")
+    timestamp_text = "\n".join(timestamp_lines) if timestamp_lines else ""
 
     # Resolve output path
     out_path = (output_path or "").strip()
@@ -842,7 +852,7 @@ class AILab_Qwen3ASRToSRT:
       except Exception:
         pass
 
-    return (out_path, srt_text)
+    return (timestamp_text, srt_text, out_path)
 
 
 NODE_CLASS_MAPPINGS = {
