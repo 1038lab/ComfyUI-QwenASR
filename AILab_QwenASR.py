@@ -712,12 +712,121 @@ class AILab_Qwen3ASRSubtitle:
         return (text, subtitles, detected_lang, file_path)
 
 
+class AILab_Qwen3ASRToSRT:
+    @classmethod
+    def INPUT_TYPES(cls):
+        defaults = _get_defaults()
+        return {
+            "required": {
+                "audio": ("AUDIO", {"tooltip": "Audio input to transcribe."}),
+                "original_text": ("STRING", {"forceInput": True, "tooltip": "Original text (原文) from another node, used as context to improve recognition accuracy."}),
+            },
+            "optional": {
+                "model": (list(_get_model_ids().keys()), {"default": defaults.get("repo_id", "Qwen/Qwen3-ASR-0.6B"), "tooltip": "Choose the ASR model size."}),
+                "forced_aligner": (list(_get_aligner_ids().keys()), {"default": defaults.get("forced_aligner", "Qwen/Qwen3-ForcedAligner-0.6B"), "tooltip": "Forced aligner for timestamp-accurate subtitles."}),
+                "precision": (["bf16", "fp16", "fp32"], {"default": defaults.get("precision", "bf16"), "tooltip": "Inference precision."}),
+                "language": (SUPPORTED_LANGUAGES, {"default": defaults.get("language", "auto"), "tooltip": "Force language or auto-detect."}),
+                "output_path": ("STRING", {"default": "", "multiline": False, "tooltip": "Optional SRT output file path. Leave empty to auto-generate in ComfyUI output folder."}),
+                "split_mode": (["split_by_punctuation_or_pause_or_length", "split_by_punctuation_or_pause", "split_by_punctuation_or_length", "split_by_punctuation", "split_by_pause", "split_by_length"], {"default": "split_by_punctuation_or_pause_or_length", "tooltip": "Sentence splitting strategy."}),
+                "max_gap_sec": ("FLOAT", {"default": 0.6, "min": 0.0, "max": 8.0, "step": 0.1, "tooltip": "Max silence gap to keep within the same subtitle line."}),
+                "max_chars": ("INT", {"default": 40, "min": 0, "max": 200, "tooltip": "Max characters per subtitle line (0 = no limit)."}),
+                "unload_models": ("BOOLEAN", {"default": True, "tooltip": "Unload cached model after inference."}),
+            },
+        }
+
+    RETURN_TYPES = ("STRING", "STRING")
+    RETURN_NAMES = ("SRT_PATH", "SRT_TEXT")
+    FUNCTION = "to_srt"
+    CATEGORY = "🧪AILab/🎙️QwenASR"
+
+    def to_srt(
+        self,
+        audio,
+        original_text="",
+        model="Qwen/Qwen3-ASR-0.6B",
+        forced_aligner="Qwen/Qwen3-ForcedAligner-0.6B",
+        precision="bf16",
+        language="auto",
+        output_path="",
+        split_mode="split_by_punctuation_or_pause_or_length",
+        max_gap_sec=0.6,
+        max_chars=40,
+        unload_models=True,
+    ):
+        if Qwen3ASRModel is None:
+            raise RuntimeError(f"qwen-asr not available: {_IMPORT_ERROR}")
+
+        device = model_management.get_torch_device()
+        dtype = _build_dtype(precision, device)
+
+        source = _get_defaults().get("source", "HuggingFace")
+        model_path = _resolve_model_path(model, source)
+
+        forced_aligner_path = ""
+        if forced_aligner and forced_aligner != "None":
+            forced_aligner_path = _resolve_model_path(forced_aligner, source)
+
+        audio_data = _normalize_audio(audio)
+        if audio_data is None:
+            return ("", "")
+
+        lang = None if language == "auto" else language
+        ctx = original_text.strip() if isinstance(original_text, str) else ""
+
+        asr_model = _load_cached_model(
+            model_path,
+            dtype,
+            device,
+            "auto",
+            forced_aligner_path,
+        )
+        results = asr_model.transcribe(
+            audio=audio_data,
+            language=lang,
+            context=ctx if ctx else None,
+            return_time_stamps=True,
+        )
+
+        result = results[0]
+        time_stamps = getattr(result, "time_stamps", None)
+        groups = _group_time_stamps(time_stamps, max_gap_sec=max_gap_sec, max_chars=max_chars, split_mode=split_mode)
+        srt_text = _build_srt_from_groups(groups)
+
+        # Resolve output path
+        out_path = (output_path or "").strip()
+        if not os.path.isabs(out_path):
+            base = out_path if out_path else _default_output_dir()
+            out_path = os.path.join(folder_paths.get_output_directory(), base) if out_path else base
+
+        if _is_dir_path(out_path):
+            out_path = os.path.join(out_path, _make_default_filename(".srt"))
+        else:
+            root, ext = os.path.splitext(out_path)
+            if not ext:
+                out_path = root + ".srt"
+
+        os.makedirs(os.path.dirname(out_path), exist_ok=True)
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(srt_text)
+
+        if unload_models:
+            _ASR_MODEL_CACHE.clear()
+            try:
+                model_management.soft_empty_cache()
+            except Exception:
+                pass
+
+        return (out_path, srt_text)
+
+
 NODE_CLASS_MAPPINGS = {
     "AILab_Qwen3ASR": AILab_Qwen3ASR,
     "AILab_Qwen3ASRSubtitle": AILab_Qwen3ASRSubtitle,
+    "AILab_Qwen3ASRToSRT": AILab_Qwen3ASRToSRT,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "AILab_Qwen3ASR": "ASR (QwenASR)",
     "AILab_Qwen3ASRSubtitle": "Subtitle (QwenASR)",
+    "AILab_Qwen3ASRToSRT": "To SRT (QwenASR)",
 }
