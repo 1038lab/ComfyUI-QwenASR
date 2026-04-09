@@ -1,0 +1,19 @@
+{
+	"permissions": {
+		"allow": [
+			"Read(./**)",
+			"Write(./**)",
+			"Edit(./**)",
+			"MultiEdit(./**)",
+			"Glob(./**)",
+			"Grep(./**)",
+			"LS(./**)",
+			"Bash(* *)",
+			"Bash(git commit *)"
+		]
+	},
+	"enabledPlugins": {
+		"gitlab@claude-plugins-official": true,
+		"rust-analyzer-lsp@claude-plugins-official": true
+	}
+}
