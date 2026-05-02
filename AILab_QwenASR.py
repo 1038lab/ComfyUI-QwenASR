@@ -430,16 +430,45 @@ def _join_tokens(a: str, b: str) -> str:
     return f"{a} {b}"
 
 
-def _group_time_stamps(time_stamps, max_gap_sec: float, max_chars: int, split_mode: str):
+def _group_time_stamps(time_stamps, max_gap_sec: float, max_chars: int, split_mode: str, full_text: str = ""):
     if not time_stamps:
         return []
+
+    items = list(time_stamps) if time_stamps else []
+    if not items:
+        return []
+
     groups = []
     cur = None
-    punct = ("。", "！", "？", ".", "!", "?")
-    for item in time_stamps:
+    punct = (".", "。", "！", "？", "!", "?")
+
+    item_end_positions = []
+
+    if full_text:
+        normalized_full = full_text.replace(" ", "")
+        current_pos = 0
+
+        for item in items:
+            item_text = (item.text or "").strip()
+            if not item_text:
+                item_end_positions.append(current_pos)
+                continue
+
+            search_text = item_text.replace(" ", "")
+            found_pos = normalized_full.find(search_text, current_pos)
+
+            if found_pos >= 0:
+                current_pos = found_pos + len(search_text)
+            else:
+                current_pos += len(search_text)
+
+            item_end_positions.append(current_pos)
+
+    for idx, item in enumerate(items):
         text = (item.text or "").strip()
         if not text:
             continue
+
         if cur is None:
             cur = {
                 "start": item.start_time,
@@ -451,7 +480,15 @@ def _group_time_stamps(time_stamps, max_gap_sec: float, max_chars: int, split_mo
         gap = float(item.start_time) - float(cur["end"])
         too_far = gap > max_gap_sec
         too_long = max_chars > 0 and (len(cur["text"]) + len(text)) > max_chars
-        end_sentence = any(cur["text"].endswith(p) for p in punct)
+
+        end_sentence = False
+        if full_text and idx > 0 and idx <= len(item_end_positions):
+            prev_end_pos = item_end_positions[idx - 1] if idx - 1 < len(item_end_positions) else 0
+            if prev_end_pos > 0:
+                normalized_text = full_text.replace(" ", "")
+                if prev_end_pos < len(normalized_text):
+                    boundary_char = normalized_text[prev_end_pos]
+                    end_sentence = any(boundary_char == p for p in punct)
 
         split_by_punct = split_mode in ("split_by_punctuation", "split_by_punctuation_or_length", "split_by_punctuation_or_pause", "split_by_punctuation_or_pause_or_length")
         split_by_length = split_mode in ("split_by_length", "split_by_punctuation_or_length", "split_by_punctuation_or_pause_or_length")
@@ -670,7 +707,7 @@ class AILab_Qwen3ASRSubtitle:
         subtitles = ""
         file_path = ""
         time_stamps = getattr(result, "time_stamps", None)
-        groups = _group_time_stamps(time_stamps, max_gap_sec=max_gap_sec, max_chars=max_chars, split_mode=split_mode)
+        groups = _group_time_stamps(time_stamps, max_gap_sec=max_gap_sec, max_chars=max_chars, split_mode=split_mode, full_text=text)
         # Always build subtitle output
         lines = []
         for g in groups:
