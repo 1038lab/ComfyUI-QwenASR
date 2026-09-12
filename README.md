@@ -2,7 +2,10 @@
 
 ComfyUI custom nodes for **Qwen3-ASR** (Automatic Speech Recognition). This pack focuses on simple, reliable speech-to-text and subtitle workflows with local model caching and long-audio support.
 
-## What's New in v1.1.0
+![QwenASR_V1.1.0](example_workflows/ComfyUI-QwenASR.png)
+
+## What's New in v1.1.0 
+[update in v1.1.0 ](Update.md#update-v110)
 
 ### 1. A Comprehensive Three-Node Speech Toolkit
 This update enriches the suite from basic speech recognition into a complete audio workflow:
@@ -44,7 +47,7 @@ Raw speech-to-text often produces acoustic noise and awkward phrasing. Version 1
 - **Use case**: quick speech-to-text
 - **Options**: model, precision, language, hints, normalize_text, unload_models
 
-![ASR](example_workflows/ASR.JPG) [Workflow](example_workflows/ASR.json)
+[Workflow](example_workflows/ComfyUI-QwenASR.json)
 
 ### Subtitle (QwenASR)
 - **Input**: AUDIO
@@ -55,7 +58,7 @@ Raw speech-to-text often produces acoustic noise and awkward phrasing. Version 1
 - **Output path**: optional file save location (default: `ComfyUI/output/ComfyUI-QwenASR/`)
 - **Split mode**: default is punctuation + pause + length (balanced for subtitles)
 
-![Subtitle](example_workflows/Subtitle.JPG) [Workflow](example_workflows/Subtitle.json)
+![Subtitle](example_workflows/ComfyUI-QwenASR_subtitle.png) [Workflow](example_workflows/ComfyUI-QwenASR_subtitle.json)
 
 ### Forced Align (QwenASR)
 - **Input**: AUDIO (required), TEXT (optional transcript; if left blank, speech is auto-transcribed first)
