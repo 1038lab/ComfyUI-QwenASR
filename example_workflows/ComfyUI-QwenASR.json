@@ -1,0 +1,398 @@
+{
+  "id": "9d04e057-545b-4e74-a920-6d54c2095ab7",
+  "revision": 0,
+  "last_node_id": 44,
+  "last_link_id": 65,
+  "nodes": [
+    {
+      "id": 33,
+      "type": "MarkdownNote",
+      "pos": [
+        2466.4190965484545,
+        5540.207540564256
+      ],
+      "size": [
+        282.78125,
+        227.234375
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.5.2",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "### ASR Hints (Optional)\n\n  Use **Hints** to force correct brand names / casing.\n\n  Example:\n\n  Important terms: ComfyUI, Qwen3-ASR, HuggingFace, ModelScope\n  Prefer brand spellings exactly as written above.\n\n\n  - If you leave Hints empty, ASR uses default behavior.\n  - Hints are best for proper nouns, brands, and special terms."
+      ],
+      "widgets_values_named": {
+        "text": "### ASR Hints (Optional)\n\n  Use **Hints** to force correct brand names / casing.\n\n  Example:\n\n  Important terms: ComfyUI, Qwen3-ASR, HuggingFace, ModelScope\n  Prefer brand spellings exactly as written above.\n\n\n  - If you leave Hints empty, ASR uses default behavior.\n  - Hints are best for proper nouns, brands, and special terms."
+      },
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 39,
+      "type": "AILab_Qwen3ASR",
+      "pos": [
+        2787.180380681309,
+        5336.359243143102
+      ],
+      "size": [
+        340,
+        242
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 58
+        }
+      ],
+      "outputs": [
+        {
+          "name": "TEXT",
+          "type": "STRING",
+          "links": [
+            59
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-QwenASR",
+        "ver": "b4a72ce9edff506f1659c059891da8d98b73284b",
+        "Node name for S&R": "AILab_Qwen3ASR",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "Qwen/Qwen3-ASR-0.6B-hf",
+        "bf16",
+        "auto",
+        "",
+        true,
+        true
+      ],
+      "widgets_values_named": {
+        "model": "Qwen/Qwen3-ASR-0.6B-hf",
+        "precision": "bf16",
+        "language": "auto",
+        "hints": "",
+        "normalize_text": true,
+        "unload_models": true
+      },
+      "color": "#151c19",
+      "bgcolor": "#444d49"
+    },
+    {
+      "id": 24,
+      "type": "PreviewAny",
+      "pos": [
+        3151.720433669072,
+        5341.723573209056
+      ],
+      "size": [
+        681.46875,
+        255.828125
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 59
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.11.0",
+        "Node name for S&R": "PreviewAny",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 5,
+      "type": "LoadAudio",
+      "pos": [
+        2466.4190965484545,
+        5336.359243143102
+      ],
+      "size": [
+        282.78125,
+        138
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            58,
+            64
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.11.0",
+        "Node name for S&R": "LoadAudio",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [
+        "comfyui-qwenasr_V1.1.0.mp4",
+        null,
+        null
+      ],
+      "widgets_values_named": {
+        "audio": "comfyui-qwenasr_V1.1.0.mp4",
+        "upload": null
+      }
+    },
+    {
+      "id": 35,
+      "type": "PreviewAny",
+      "pos": [
+        3140.7646353022187,
+        5710.311146853169
+      ],
+      "size": [
+        688.546875,
+        415.203125
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 65
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.11.0",
+        "Node name for S&R": "PreviewAny",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 44,
+      "type": "AILab_Qwen3ASRSubtitle",
+      "pos": [
+        2784.7420178280763,
+        5689.991663110041
+      ],
+      "size": [
+        340,
+        561.984375
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 64
+        }
+      ],
+      "outputs": [
+        {
+          "name": "TEXT",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "SUBTITLES",
+          "type": "STRING",
+          "links": [
+            65
+          ]
+        },
+        {
+          "name": "LANGUAGE",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "OUTPUT_PATH",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-QwenASR",
+        "ver": "b4a72ce9edff506f1659c059891da8d98b73284b",
+        "Node name for S&R": "AILab_Qwen3ASRSubtitle",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "Qwen/Qwen3-ASR-0.6B-hf",
+        "bf16",
+        "auto",
+        "Qwen/Qwen3-ForcedAligner-0.6B-hf",
+        "auto",
+        "",
+        "none",
+        "",
+        "split_by_punctuation_or_pause",
+        0.6,
+        40,
+        32,
+        256,
+        true,
+        true
+      ],
+      "widgets_values_named": {
+        "model": "Qwen/Qwen3-ASR-0.6B-hf",
+        "precision": "bf16",
+        "attention": "auto",
+        "forced_aligner": "Qwen/Qwen3-ForcedAligner-0.6B-hf",
+        "language": "auto",
+        "hints": "",
+        "output_format": "none",
+        "output_path": "",
+        "split_mode": "split_by_punctuation_or_pause",
+        "max_gap_sec": 0.6,
+        "max_chars": 40,
+        "max_inference_batch_size": 32,
+        "max_new_tokens": 256,
+        "normalize_text": true,
+        "unload_models": true
+      },
+      "color": "#151c19",
+      "bgcolor": "#444d49"
+    }
+  ],
+  "links": [
+    [
+      58,
+      5,
+      0,
+      39,
+      0,
+      "AUDIO"
+    ],
+    [
+      59,
+      39,
+      0,
+      24,
+      0,
+      "STRING"
+    ],
+    [
+      64,
+      5,
+      0,
+      44,
+      0,
+      "AUDIO"
+    ],
+    [
+      65,
+      44,
+      1,
+      35,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "QwenASR without hints",
+      "bounding": [
+        2777.180380681309,
+        5262.759243143101,
+        1064.8994521188579,
+        341.40172024181356
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "QwenASR Subtitle",
+      "bounding": [
+        2775.6361296817013,
+        5615.73824954861,
+        1063.7871702224647,
+        642.6388561949889
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ue_links": [],
+    "ds": {
+      "scale": 0.9842769753815471,
+      "offset": [
+        -2167.1743053632754,
+        -5092.025295565281
+      ]
+    },
+    "links_added_by_ue": [],
+    "frontendVersion": "1.51.10",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4,
+  "seed_widgets": {}
+}
