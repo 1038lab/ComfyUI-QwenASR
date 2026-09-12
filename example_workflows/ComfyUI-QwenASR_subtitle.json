@@ -1,0 +1,435 @@
+{
+  "id": "2c8bc9f4-6cdd-4d7e-af2b-773c9c169fe3",
+  "revision": 0,
+  "last_node_id": 10,
+  "last_link_id": 24,
+  "nodes": [
+    {
+      "id": 4,
+      "type": "PreviewAny",
+      "pos": [
+        3398.614738268043,
+        5186.24218032881
+      ],
+      "size": [
+        365.46875,
+        174.6875
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 20
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.11.0",
+        "Node name for S&R": "PreviewAny",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 6,
+      "type": "LoadAudio",
+      "pos": [
+        2715.787998823017,
+        5186.24218032881
+      ],
+      "size": [
+        282.78125,
+        138
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            19
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.11.0",
+        "Node name for S&R": "LoadAudio",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [
+        "ComfyUI-qwenasr_00003_.mp3",
+        null,
+        null
+      ],
+      "widgets_values_named": {
+        "audio": "ComfyUI-qwenasr_00003_.mp3",
+        "upload": null
+      }
+    },
+    {
+      "id": 2,
+      "type": "PreviewAny",
+      "pos": [
+        3794.1052272633237,
+        5186.24218032881
+      ],
+      "size": [
+        364.046875,
+        220.375
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 21
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.11.0",
+        "Node name for S&R": "PreviewAny",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 10,
+      "type": "AILab_Qwen3ASRSubtitle",
+      "pos": [
+        3028.60078260803,
+        5186.24218032881
+      ],
+      "size": [
+        340,
+        561.984375
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 19
+        },
+        {
+          "name": "hints",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "hints"
+          },
+          "link": 24
+        }
+      ],
+      "outputs": [
+        {
+          "name": "TEXT",
+          "type": "STRING",
+          "links": [
+            20
+          ]
+        },
+        {
+          "name": "SUBTITLES",
+          "type": "STRING",
+          "links": [
+            21
+          ]
+        },
+        {
+          "name": "LANGUAGE",
+          "type": "STRING",
+          "links": [
+            22
+          ]
+        },
+        {
+          "name": "OUTPUT_PATH",
+          "type": "STRING",
+          "links": [
+            23
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-QwenASR",
+        "ver": "b4a72ce9edff506f1659c059891da8d98b73284b",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {}
+        },
+        "Node name for S&R": "AILab_Qwen3ASRSubtitle"
+      },
+      "widgets_values": [
+        "Qwen/Qwen3-ASR-0.6B-hf",
+        "bf16",
+        "auto",
+        "Qwen/Qwen3-ForcedAligner-0.6B-hf",
+        "auto",
+        "Important terms: ComfyUI, Qwen3-ASR\nUse exact casing for these terms.",
+        "srt",
+        "",
+        "split_by_punctuation_or_pause",
+        0.6,
+        40,
+        32,
+        256,
+        true,
+        true
+      ],
+      "widgets_values_named": {
+        "model": "Qwen/Qwen3-ASR-0.6B-hf",
+        "precision": "bf16",
+        "attention": "auto",
+        "forced_aligner": "Qwen/Qwen3-ForcedAligner-0.6B-hf",
+        "language": "auto",
+        "hints": "Important terms: ComfyUI, Qwen3-ASR\nUse exact casing for these terms.",
+        "output_format": "srt",
+        "output_path": "",
+        "split_mode": "split_by_punctuation_or_pause",
+        "max_gap_sec": 0.6,
+        "max_chars": 40,
+        "max_inference_batch_size": 32,
+        "max_new_tokens": 256,
+        "normalize_text": true,
+        "unload_models": true
+      },
+      "color": "#151c19",
+      "bgcolor": "#444d49"
+    },
+    {
+      "id": 1,
+      "type": "PreviewAny",
+      "pos": [
+        3398.614738268043,
+        5582.873659473297
+      ],
+      "size": [
+        367,
+        138
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 23
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.11.0",
+        "Node name for S&R": "PreviewAny",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 3,
+      "type": "PreviewAny",
+      "pos": [
+        3398.614738268043,
+        5400.821803799447
+      ],
+      "size": [
+        362.9375,
+        142.15625
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 22
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.11.0",
+        "Node name for S&R": "PreviewAny",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        }
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 7,
+      "type": "PrimitiveNode",
+      "pos": [
+        2715.787998823017,
+        5434.494073893977
+      ],
+      "size": [
+        282.78125,
+        102
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "widget": {
+            "name": "hints"
+          },
+          "links": [
+            24
+          ]
+        }
+      ],
+      "properties": {
+        "Run widget replace on values": false,
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "Important terms: ComfyUI, Qwen3-ASR\nUse exact casing for these terms."
+      ],
+      "widgets_values_named": {
+        "hints": "Important terms: ComfyUI, Qwen3-ASR\nUse exact casing for these terms."
+      }
+    }
+  ],
+  "links": [
+    [
+      19,
+      6,
+      0,
+      10,
+      0,
+      "AUDIO"
+    ],
+    [
+      20,
+      10,
+      0,
+      4,
+      0,
+      "STRING"
+    ],
+    [
+      21,
+      10,
+      1,
+      2,
+      0,
+      "STRING"
+    ],
+    [
+      22,
+      10,
+      2,
+      3,
+      0,
+      "STRING"
+    ],
+    [
+      23,
+      10,
+      3,
+      1,
+      0,
+      "STRING"
+    ],
+    [
+      24,
+      7,
+      0,
+      10,
+      1,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ue_links": [],
+    "ds": {
+      "scale": 1.26915149139603,
+      "offset": [
+        -2647.6659624178646,
+        -4814.318603343246
+      ]
+    },
+    "links_added_by_ue": [],
+    "frontendVersion": "1.51.10",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4,
+  "seed_widgets": {}
+}
