@@ -1,8 +1,10 @@
-# Update v1.1.0
+# Update v1.1.0 (2026-09-11)
 
 This release focuses on delivering production-ready speech transcription and subtitling in ComfyUI, improving output accuracy, and expanding the node suite into a complete audio workflow.
 
 ---
+
+![QwenASR_V1.1.0](example_workflows/ComfyUI-QwenASR.png)
 
 ### 1. How v1.1.0 Enriches the Node Family
 Instead of relying on a single speech-to-text node, users now have a complete three-node toolkit tailored to different audio tasks:
