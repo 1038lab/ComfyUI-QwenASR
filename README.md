@@ -5,7 +5,7 @@ ComfyUI custom nodes for **Qwen3-ASR** (Automatic Speech Recognition). This pack
 ![QwenASR_V1.1.0](example_workflows/ComfyUI-QwenASR.png)
 
 ## What's New in v1.1.0 
-[update in v1.1.0 ](Update.md#update-v110)
+[update in v1.1.0 ](Update.md#update-v110-2026-09-11)
 
 ### 1. A Comprehensive Three-Node Speech Toolkit
 This update enriches the suite from basic speech recognition into a complete audio workflow:
