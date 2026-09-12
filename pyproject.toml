@@ -1,7 +1,7 @@
 [project]
 name = "ComfyUI-QwenASR"
-description = "A lightweight ComfyUI custom node pack for Qwen3-ASR, providing simple speech‑to‑text workflows with local model caching and optional timestamp output. Supports Qwen/Qwen3‑ASR‑1.7B and 0.6B, with HuggingFace/ModelScope download options and clean integration for ComfyUI pipelines."
-version = "1.0.0"
+description = "A lightweight ComfyUI custom node pack for Qwen3-ASR, providing simple speech-to-text workflows with local model caching and timestamp subtitle output. Supports official Transformers-native Qwen3-ASR-*-hf models, with HuggingFace/ModelScope download options."
+version = "1.1.0"
 license = {file = "LICENSE"}
 
 dependencies = [
@@ -15,7 +15,7 @@ dependencies = [
 	"soundfile",
 	"torch>=2.0.0",
 	"torchaudio>=2.0.0",
-	"transformers>=4.57.0",
+	"transformers>=5.13.0",
 ]
     
 [project.urls]
