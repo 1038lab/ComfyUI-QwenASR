@@ -1,19 +1,19 @@
 {
   "models": {
-    "Qwen/Qwen3-ASR-1.7B": "Qwen3-ASR-1.7B",
-    "Qwen/Qwen3-ASR-0.6B": "Qwen3-ASR-0.6B"
+    "Qwen/Qwen3-ASR-1.7B-hf": "Qwen3-ASR-1.7B-hf",
+    "Qwen/Qwen3-ASR-0.6B-hf": "Qwen3-ASR-0.6B-hf"
   },
   "aligners": {
     "None": null,
-    "Qwen/Qwen3-ForcedAligner-0.6B": "Qwen3-ForcedAligner-0.6B"
+    "Qwen/Qwen3-ForcedAligner-0.6B-hf": "Qwen3-ForcedAligner-0.6B-hf"
   },
   "sources": ["HuggingFace", "ModelScope"],
   "defaults": {
-    "repo_id": "Qwen/Qwen3-ASR-0.6B",
+    "repo_id": "Qwen/Qwen3-ASR-0.6B-hf",
     "source": "HuggingFace",
     "precision": "bf16",
     "attention": "auto",
     "language": "auto",
-    "forced_aligner": "Qwen/Qwen3-ForcedAligner-0.6B"
+    "forced_aligner": "Qwen/Qwen3-ForcedAligner-0.6B-hf"
   }
 }
