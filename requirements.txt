@@ -8,4 +8,4 @@ numpy
 soundfile
 torch>=2.0.0
 torchaudio>=2.0.0
-transformers>=4.57.0
+transformers>=5.13.0
