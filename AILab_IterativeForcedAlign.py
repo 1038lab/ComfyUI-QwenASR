@@ -253,8 +253,8 @@ class AILab_Qwen3ForcedAlign:
                     word_cursor += max(target_words // 2, 1)
                     audio_cursor_sec += chunk_duration
 
-        if all_items and transcript_text:
-            all_items = _restore_punctuation(all_items, transcript_text)
+        if all_items and text:
+            all_items = _restore_punctuation(all_items, text)
 
         # Format output
         lines = []
