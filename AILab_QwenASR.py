@@ -1,6 +1,7 @@
 # ComfyUI-QwenASR
 # ComfyUI custom nodes for Qwen3-ASR speech-to-text models.
 
+import json
 import os
 import re
 import shutil
@@ -360,9 +361,20 @@ def _build_dtype(precision: str, device: torch.device) -> torch.dtype:
     return torch.float32
 
 
-def _is_hf_native(repo_id_or_path: str) -> bool:
-    s = str(repo_id_or_path).lower()
-    return "-hf" in s
+def _is_hf_native(model_path: str, architecture: str) -> bool:
+    try:
+        config = json.loads((Path(model_path) / "config.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return False
+
+    # Legacy checkpoints keep the two sub-configs nested inside thinker_config.
+    return (
+        isinstance(config, dict)
+        and config.get("model_type") == "qwen3_asr"
+        and isinstance(config.get("audio_config"), dict)
+        and isinstance(config.get("text_config"), dict)
+        and (not config.get("architectures") or architecture in config["architectures"])
+    )
 
 
 # -------------------------------------------------------------------------
@@ -535,10 +547,10 @@ def _load_cached_aligner(
     if cached is not None:
         return cached
 
-    if not _is_hf_native(aligner_path):
+    if not _is_hf_native(aligner_path, "Qwen3ASRForTokenClassification"):
         raise ValueError(
             f"Model '{aligner_path}' is not supported. "
-            "Please use the official native model: 'Qwen/Qwen3-ForcedAligner-0.6B-hf'."
+            "Expected a Transformers-native Qwen3 forced aligner, such as 'Qwen/Qwen3-ForcedAligner-0.6B-hf'."
         )
 
     aligner = _HFAlignerEngine(aligner_path, dtype, device, attention)
@@ -568,10 +580,10 @@ def _load_cached_asr(
     if cached is not None:
         return cached
 
-    if not _is_hf_native(model_path):
+    if not _is_hf_native(model_path, "Qwen3ASRForConditionalGeneration"):
         raise ValueError(
             f"Model '{model_path}' is not supported. "
-            "Please use official native models: 'Qwen/Qwen3-ASR-0.6B-hf' or 'Qwen/Qwen3-ASR-1.7B-hf'."
+            "Expected a Transformers-native Qwen3-ASR transcription checkpoint, such as 'Qwen/Qwen3-ASR-0.6B-hf'."
         )
 
     asr_engine = _HFASREngine(model_path, dtype, device, attention)
