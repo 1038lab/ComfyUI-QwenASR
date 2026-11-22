@@ -116,6 +116,13 @@ Example:
 
 Tip: If you are in mainland China, using **ModelScope** as the source is usually faster and more reliable.
 
+For a local English transcription workflow with [Oruk Fourier 2B](https://huggingface.co/oruk/oruk-fourier-2b),
+add `"oruk/oruk-fourier-2b": "oruk-fourier-2b"` to the existing `models` object.
+Set `defaults.source` to `HuggingFace`, then select this model and **English** in the node. This uses the
+same native Transformers backend and caches the selected checkpoint locally. The Fourier
+weights are CC BY-NC 4.0. Commercial use or hosted/API serving requires a separate license
+from Oruk. The optional Qwen forced aligner remains a separate model.
+
 ### Custom model locations (extra_model_paths.yaml)
 
 If you keep models outside the default folder, add the parent directory to ComfyUI’s `extra_model_paths.yaml`.
